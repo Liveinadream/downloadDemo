@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_centerHorizontal="true"
+    android:layout_centerVertical="true"
+    android:background="@color/white"
+    android:padding="5dp"
+    tools:context="com.example.zhangtianning.download.MainActivity">
+
+    <RadioGroup
+        android:id="@+id/radio_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/holo_blue_bright"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/button_start"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="开始" />
+
+        <Button
+            android:id="@+id/button_pause"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="暂停" />
+
+        <Button
+            android:id="@+id/button_service"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text="开启Service下载"
+            android:visibility="gone" />
+    </RadioGroup>
+
+
+    <EditText
+        android:id="@+id/et_url"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/radio_button"
+        android:hint="请输入下载的URI" />
+
+    <TextView
+        android:id="@+id/tv_state"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/et_url"
+        android:padding="5dp"
+        android:text="暂无下载"
+        android:textAlignment="center" />
+
+
+    <com.example.zhangtianning.download.TextProgressbar
+        android:id="@+id/myProgressBar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:layout_centerInParent="true"
+        android:progressDrawable="@drawable/b_webview_progressbar" />
+
+    <Button
+        android:id="@+id/button_switch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_state"
+        android:padding="10dp"
+        android:text="进度条显示状态：百分比" />
+
+    <Button
+        android:id="@+id/button_start_a_service"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/button_switch"
+        android:padding="10dp"
+        android:text="serverce下载任务，当前状态为：未开启"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/change_url"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="200dp"
+        android:background="@android:color/holo_blue_bright"
+        android:padding="5dp"
+        android:text="文件下载完成？换一个url试试"
+        android:textAlignment="center"
+        android:textColor="#000000" />
+</RelativeLayout>
