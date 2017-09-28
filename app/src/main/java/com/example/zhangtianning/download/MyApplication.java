@@ -23,6 +23,6 @@ public class MyApplication extends Application implements Thread.UncaughtExcepti
     @Override
     public void uncaughtException(Thread thread, Throwable throwable) {
         System.out.println("uncaughtException");
-        System.exit(0);
+        System.exit(1);
     }
 }

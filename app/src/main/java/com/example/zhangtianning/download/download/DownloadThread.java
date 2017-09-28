@@ -2,6 +2,7 @@ package com.example.zhangtianning.download.download;
 
 import android.app.Activity;
 import android.os.Environment;
+import android.text.TextUtils;
 
 import com.example.zhangtianning.download.MainActivity;
 import com.example.zhangtianning.download.dao.DownloadFileInfo;
@@ -106,7 +107,9 @@ public class DownloadThread extends Thread {
 
             long fileLength;
 
-            if (downloadSize == mDownloadFileInfo.getFileSize()) {
+//
+            if (downloadSize == mDownloadFileInfo.getFileSize() &&
+                    !TextUtils.equals("-1", mDownloadFileInfo.getFileSize().toString())) {
                 OpenApk.getInstance().openFile(ctx, new File(mDownloadFileInfo.getFilePath()));
                 interrupt();
             }
@@ -139,6 +142,11 @@ public class DownloadThread extends Thread {
                 LogUtils.D("Tag", "临时文件的路径：" + tmpFilePath);
                 tmpFile = FileUtils.createTempFile(tmpfileBasePath, fileName);
                 mDownloadFileInfo.setTempFilePath(tmpFile.getAbsolutePath());
+                if (TextUtils.equals("-1", mDownloadFileInfo.getFileSize().toString())) {
+                    ToastUtils.showToast(ctx, "没有获取下载信息请重试");
+//                stop();
+                    interrupt();
+                }
             }
 
             LogUtils.D(TAG, "run fileLength=" + fileLength +

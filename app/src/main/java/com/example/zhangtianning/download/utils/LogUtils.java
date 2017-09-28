@@ -3,6 +3,7 @@ package com.example.zhangtianning.download.utils;
 
 import android.util.Log;
 
+import com.example.zhangtianning.download.BuildConfig;
 import com.example.zhangtianning.download.download.FileDownload;
 
 
@@ -25,7 +26,7 @@ public class LogUtils {
 	}
 
 	public static void E(String tag, String message) {
-		if (!FileDownload.getDebugModel())
+		if (!BuildConfig.DEBUG)
 			return;
 		if (message != null) {
 			print(E, tag, message);
@@ -34,7 +35,7 @@ public class LogUtils {
 
 
 	public static void D(String tag, String message) {
-		if (!FileDownload.getDebugModel())
+		if (!BuildConfig.DEBUG)
 			return;
 		if (message != null) {
 			print(D, tag, message);
@@ -50,7 +51,7 @@ public class LogUtils {
 	}*/
 
 	public static void I(String tag, String message) {
-		if (!FileDownload.getDebugModel())
+		if (!BuildConfig.DEBUG)
 			return;
 		if (message != null) {
 			print(I, tag, message);
@@ -63,7 +64,7 @@ public class LogUtils {
 	 * @param message
 	 */
 	public static void println(String tag, String message){
-		if(!FileDownload.getDebugModel()){
+		if (!BuildConfig.DEBUG){
 			return;
 		}
 		System.out.println(tag+"====="+message);

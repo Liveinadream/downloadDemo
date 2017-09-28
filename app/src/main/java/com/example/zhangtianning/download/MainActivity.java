@@ -147,7 +147,6 @@ public class MainActivity extends AppCompatActivity implements FileDownloadListe
         changeUrl = (TextView) this.findViewById(R.id.change_url);
 
         etUrl.setText(urls.get(0));
-        FileDownload.setDebugModel(true);
 
         buttonStrart.setOnClickListener(this);
         buttonPause.setOnClickListener(this);
@@ -228,6 +227,12 @@ public class MainActivity extends AppCompatActivity implements FileDownloadListe
 
     }
 
+    /**
+     * 判断url是否合理与是否在数据库中
+     *
+     * @param context
+     * @param url
+     */
 
     private void urlIsInDB(Context context, String url) {
 
@@ -236,7 +241,8 @@ public class MainActivity extends AppCompatActivity implements FileDownloadListe
             downloadFileInfo = DBDaoImpl.getInstance(context).getDownloadFileInfoWithUrl(url);
 
             if (downloadFileInfo != null) {
-                if (TextUtils.equals(downloadFileInfo.getHadDownloadSize().toString(), downloadFileInfo.getFileSize().toString())) {
+                if (TextUtils.equals(downloadFileInfo.getHadDownloadSize().toString(), downloadFileInfo.getFileSize().toString()) &&
+                        !TextUtils.equals("-1", downloadFileInfo.getFileSize().toString())) {
                     File file = new File(downloadFileInfo.getFilePath());
                     if (file.exists()) {
                         downloadState = STATE_FINISH_DOWNLOAD;

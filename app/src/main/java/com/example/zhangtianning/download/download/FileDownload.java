@@ -27,10 +27,6 @@ public class FileDownload {
     private FileDownloadListener mFileDownloadListener;
 
     private DownloadThread downloadThread;
-    /**
-     * 是否是debug模式
-     */
-    private static boolean mIsDebugModel;
 
     /**
      * 开始下载
@@ -65,11 +61,4 @@ public class FileDownload {
         mFileDownloadListener = fileDownloadListener;
     }
 
-    public static void setDebugModel(boolean isDebugModel) {
-        mIsDebugModel = isDebugModel;
-    }
-
-    public static boolean getDebugModel() {
-        return mIsDebugModel;
-    }
 }

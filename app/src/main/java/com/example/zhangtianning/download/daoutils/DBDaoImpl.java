@@ -114,7 +114,7 @@ public class DBDaoImpl implements DBInfo, DBInstances {
     public DownloadFileInfo initBaseDownloadFileInfo(String url) {
 
         DownloadFileInfo mDownloadFileInfo = new DownloadFileInfo();
-        mDownloadFileInfo.setFileSize((long) 0);
+        mDownloadFileInfo.setFileSize((long) -1);
 //        mDownloadFileInfo.setFilePath(FILE_DOWNLOAD_DIR);
 //        mDownloadFileInfo.setTempFilePath(FILE_DOWNLOAD_TEMP_DIR);
         mDownloadFileInfo.setDownloadUrl(url);
