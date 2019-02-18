@@ -84,6 +84,7 @@ public class DownloadService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+        registerContentObserver();
         myWeakHandler = new MyWeakHandler(this);
         if (intent != null) {
             url = intent.getStringExtra(URL);

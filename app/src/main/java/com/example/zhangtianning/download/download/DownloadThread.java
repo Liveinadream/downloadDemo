@@ -55,7 +55,7 @@ public class DownloadThread extends Thread {
     private FileDownloadListener mFileDownloadListener;
 
 
-    private boolean isStopDownload;
+    private boolean isStopDownload = false;
     private OutputStream mOutputStream;
     private ByteArrayOutputStream mByteOutput;
     private File tmpFile;
@@ -89,7 +89,7 @@ public class DownloadThread extends Thread {
             httpURLConnection.setRequestMethod("GET");
             httpURLConnection.setRequestProperty("Accept-Language", "zh-cn");
             httpURLConnection.setRequestProperty("UA-CPU", "x86");
-            httpURLConnection.setRequestProperty("Accept-Encoding", "gzip");//为什么没有deflate呢
+            httpURLConnection.setRequestProperty("Accept-Encoding", "gzip");
 //            httpURLConnection.setRequestProperty("Content-type", "text/html");
             httpURLConnection.setRequestProperty("Connection", "close");
 
@@ -237,6 +237,12 @@ public class DownloadThread extends Thread {
                         break;
                     }
                 }
+            } else {
+                mDownloadFileInfo.setDownloadProgress(0);
+                if (mFileDownloadListener != null) {
+                    mFileDownloadListener.onFileDownloadFail(mDownloadFileInfo);
+                }
+                stopDownload();
             }
 
         } catch (IOException e) {
@@ -246,10 +252,12 @@ public class DownloadThread extends Thread {
                 mFileDownloadListener.onFileDownloadFail(mDownloadFileInfo);
             }
         } finally {
-            DBDaoImpl.getInstance(ctx).Updata(mDownloadFileInfo);
+            if (!isStopDownload) {
+                DBDaoImpl.getInstance(ctx).Updata(mDownloadFileInfo);
+                LogUtils.D(TAG, "文件路径" + mDownloadFileInfo.getFilePath());
+                LogUtils.D(TAG, "数据库信息：" + DBDaoImpl.getInstance(ctx).DownloadFileInfot2String(mDownloadFileInfo));
 
-            LogUtils.D(TAG, "文件路径" + mDownloadFileInfo.getFilePath());
-            LogUtils.D(TAG, "数据库信息：" + DBDaoImpl.getInstance(ctx).DownloadFileInfot2String(mDownloadFileInfo));
+            }
         }
     }
 

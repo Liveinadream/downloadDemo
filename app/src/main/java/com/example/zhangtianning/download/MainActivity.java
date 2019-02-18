@@ -98,8 +98,8 @@ public class MainActivity extends AppCompatActivity implements FileDownloadListe
 
                     break;
                 case STATE_FAIL_DOWNLOAD:
-                    String failReson = (String) msg.obj;
-                    Toast.makeText(mainActivity, failReson, Toast.LENGTH_SHORT).show();
+                    String failReason = (String) msg.obj;
+                    Toast.makeText(mainActivity, failReason, Toast.LENGTH_SHORT).show();
                     mainActivity.state.setText("下载失败");
                     break;
                 case STATE_FAIL_DOWNLOAD_PAUSE:
@@ -123,28 +123,21 @@ public class MainActivity extends AppCompatActivity implements FileDownloadListe
         setContentView(R.layout.activity_main);
         myWeakHandler = new MyWeakHandler(this);
 
-        urls.add("http://updatedownload.oss-cn-hangzhou.aliyuncs.com/%E4%B8%89%E5%A5%87V2.0.3.8.exe");
-        urls.add("http://app.clientdown.sdo.com/191/c1896/SWY_0.810_201708222228_GGbdpc01.apk");
-        urls.add("http://pc1.gamedog.cn/big/game/maoxian/84570/siwangriji_an.apk");
-        urls.add("https://sj1.3987.com/down/sinoalice.3987.apk");
-        urls.add("http://dlied6.qq.com/invc/xfspeed/qqpcmgr/download/GameDownload_wzxpsyw_85.exe");
-        urls.add("https://sj1.3987.com/down/shadowofdeath.3987.apk");
-        urls.add("https://sj1.3987.com/down/knightio.3987.apk");
-        urls.add("https://sj1.3987.com/down/dccwg2pj.3987.apk");
+        urls.add("https://www.wandoujia.com/apps/com.UCMobile/download/dot?ch=detail_normal_dl");
 
         LogUtils.D(TAG, "获取应用包名" + getPackageName());
 
         mainActivity = this;
-        buttonStrart = (Button) this.findViewById(R.id.button_start);
-        buttonPause = (Button) this.findViewById(R.id.button_pause);
-        buttonService = (Button) this.findViewById(R.id.button_service);
-        etUrl = (EditText) this.findViewById(R.id.et_url);
-        buttonSwitch = (Button) this.findViewById(R.id.button_switch);
-        buttonStartService = (Button) this.findViewById(R.id.button_start_a_service);
+        buttonStrart = this.findViewById(R.id.button_start);
+        buttonPause = this.findViewById(R.id.button_pause);
+        buttonService = this.findViewById(R.id.button_service);
+        etUrl = this.findViewById(R.id.et_url);
+        buttonSwitch = this.findViewById(R.id.button_switch);
+        buttonStartService = this.findViewById(R.id.button_start_a_service);
 
-        state = (TextView) this.findViewById(R.id.tv_state);
-        textProgressBar = (TextProgressbar) this.findViewById(R.id.myProgressBar);
-        changeUrl = (TextView) this.findViewById(R.id.change_url);
+        state = this.findViewById(R.id.tv_state);
+        textProgressBar = this.findViewById(R.id.myProgressBar);
+        changeUrl = this.findViewById(R.id.change_url);
 
         etUrl.setText(urls.get(0));
 
@@ -256,6 +249,7 @@ public class MainActivity extends AppCompatActivity implements FileDownloadListe
                     fileDownload.start(mainActivity, downloadFileInfo);
                     Message message = myWeakHandler.obtainMessage();
                     downloadState = message.what = STATE_START_DOWNLOAD;
+                    message.obj = "下载失败";
                     myWeakHandler.sendMessage(message);
                 }
             } else {
@@ -280,11 +274,20 @@ public class MainActivity extends AppCompatActivity implements FileDownloadListe
 
     @Override
     public void onFileDownloadFail(DownloadFileInfo downloadFileInfo) {
-        LogUtils.D(TAG, "onFileDownloadFail=" + downloadFileInfo.toString());
-        Message message = myWeakHandler.obtainMessage();
-        downloadState = message.what = STATE_FAIL_DOWNLOAD;
-        message.arg1 = downloadFileInfo.getDownloadProgress();
-        myWeakHandler.sendMessage(message);
+        if (downloadFileInfo != null) {
+            LogUtils.D(TAG, "onFileDownloadFail=" + downloadFileInfo.toString());
+            Message message = myWeakHandler.obtainMessage();
+            downloadState = message.what = STATE_FAIL_DOWNLOAD;
+            message.arg1 = downloadFileInfo.getDownloadProgress();
+            message.obj = "下载失败";
+            myWeakHandler.sendMessage(message);
+        } else {
+            Message message = myWeakHandler.obtainMessage();
+            downloadState = message.what = STATE_FAIL_DOWNLOAD;
+            message.arg1 = 0;
+            message.obj = "下载失败";
+            myWeakHandler.sendMessage(message);
+        }
     }
 
     @Override

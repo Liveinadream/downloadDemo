@@ -38,7 +38,7 @@ import java.util.logging.Logger;
  */
 
 public class UpdataActivity extends AppCompatActivity implements FileDownloadListener {
-    private static final String TAG = MainActivity.class.getSimpleName();
+    private static final String TAG = UpdataActivity.class.getSimpleName();
 
 
     public static final int STATE_START_DOWNLOAD = 0; // 开始下载
@@ -48,7 +48,6 @@ public class UpdataActivity extends AppCompatActivity implements FileDownloadLis
     public static final int STATE_FAIL_DOWNLOAD_PAUSE = 4; // 下载暂停
 
     public int downloadState = -1; //最初的下载状态，没有下载任务。
-
 
     //目前可能需要的参数，用户名，token，
 
@@ -61,14 +60,9 @@ public class UpdataActivity extends AppCompatActivity implements FileDownloadLis
 
     private static final String DOWNLOADFILEINFO = "downloadFileInfo";
     DownloadFileInfo downloadFileInfo;//文件信息
-    private String downloadUrl = "http://d.koudai.com/com.koudai.weishop/1000f/weishop_1000f.apk";
+    private String downloadUrl = "https://www.wandoujia.com/apps/com.UCMobile/download/dot?ch=detail_normal_dl";
     private static String URL = "url";
     DownloadManager downloadManager;
-
-
-
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

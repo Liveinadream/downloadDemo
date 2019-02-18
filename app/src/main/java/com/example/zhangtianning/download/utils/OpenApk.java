@@ -38,7 +38,6 @@ public class OpenApk {
      * 打开APK程序代码
      */
     public void openFile(Context context, File file) {
-        // TODO Auto-generated method stub
 
         if (file.getName().contains(".") &&
                 file.getName().length() >= 4 &&

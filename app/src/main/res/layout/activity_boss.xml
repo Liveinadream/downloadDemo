@@ -18,6 +18,22 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:text="开启service下载文件" />
+    <TextView
+        android:id="@+id/tv_state"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/start_service"
+        android:padding="5dp"
+        android:text="暂无下载"
+        android:textAlignment="center" />
+    <com.example.zhangtianning.download.TextProgressbar
+        android:id="@+id/myProgressBar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:layout_centerInParent="true"
+        android:progressDrawable="@drawable/b_webview_progressbar"
+        android:layout_above="@+id/jump"/>
 
     <Button
         android:id="@+id/jump"
